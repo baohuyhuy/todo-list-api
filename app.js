@@ -4,7 +4,7 @@ import cookieParser from 'cookie-parser';
 import logger from 'morgan';
 import cors from 'cors';
 
-import indexRouter from './routes/index.js';
+import authRouter from './routes/auth.route.js';
 
 const app = express();
 
@@ -14,7 +14,7 @@ app.use(json());
 app.use(urlencoded({ extended: true }));
 app.use(cookieParser());
 
-app.use('/', indexRouter);
+app.use('/auth', authRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
