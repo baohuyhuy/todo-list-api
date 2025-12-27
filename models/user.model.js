@@ -9,3 +9,11 @@ export const createUser = async (name, email, password) => {
   const id = await db('users').insert({ name, email, password }, ['id']);
   return id;
 };
+
+export const getUserByEmail = async (email) => {
+  const user = await db('users')
+    .where('email', email)
+    .select('id', 'password')
+    .first();
+  return user;
+};
