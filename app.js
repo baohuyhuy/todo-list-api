@@ -5,6 +5,7 @@ import logger from 'morgan';
 import cors from 'cors';
 
 import authRouter from './routes/auth.route.js';
+import todosRouter from './routes/todos.route.js';
 
 const app = express();
 
@@ -15,6 +16,7 @@ app.use(urlencoded({ extended: true }));
 app.use(cookieParser());
 
 app.use('/auth', authRouter);
+app.use('/todos', todosRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
