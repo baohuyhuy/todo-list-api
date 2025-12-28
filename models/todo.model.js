@@ -34,6 +34,7 @@ export const deleteTodoItem = async (id) => {
 
 export const getTodoItems = async (page, limit) => {
   const offset = (page - 1) * limit;
+
   const total = await db('todos')
     .count('id as total')
     .first()

@@ -11,8 +11,6 @@ export const validate = (schema) => async (req, res, next) => {
         .json({ error: result.error.flatten().fieldErrors });
     }
 
-    console.log(result.data);
-
     if (result.data.body) {
       req.body = result.data.body;
     }
