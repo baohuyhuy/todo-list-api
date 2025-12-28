@@ -7,3 +7,23 @@ export const createTodoItem = async (title, description, userId) => {
   );
   return todo;
 };
+
+export const getTodoById = async (id) => {
+  const todo = await db('todos')
+    .where('id', id)
+    .select('id', 'title', 'description', 'user_id')
+    .first();
+  return todo;
+};
+
+export const updateTodoItem = async (id, title, description, completed) => {
+  const [todo] = await db('todos')
+    .where('id', id)
+    .update({ title, description, completed }, [
+      'id',
+      'title',
+      'description',
+      'completed',
+    ]);
+  return todo;
+};

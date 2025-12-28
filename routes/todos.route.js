@@ -1,16 +1,20 @@
 import { Router } from 'express';
-import { authenticateToken } from '../middlewares/auth.middleware.js';
-import { createTodoItemController } from '../controllers/todos.controller.js';
+import {
+  authenticateToken,
+  authorizeUpdatePermission,
+} from '../middlewares/auth.middleware.js';
+import {
+  createTodoItemController,
+  updateTodoItemController,
+} from '../controllers/todos.controller.js';
 import { validate } from '../middlewares/validation.middleware.js';
-import { createTodoItemSchema } from '../schemas/todos.schema.js';
+import {
+  createTodoItemSchema,
+  updateTodoItemSchema,
+} from '../schemas/todos.schema.js';
 
 const router = Router();
 
-router.post(
-  '/',
-  authenticateToken,
-  validate(createTodoItemSchema),
-  createTodoItemController
-);
-
+router.post('/', authenticateToken, createTodoItemController);
+router.put('/:id', authenticateToken, updateTodoItemController);
 export default router;
