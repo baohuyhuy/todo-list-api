@@ -20,7 +20,7 @@ export const authenticateToken = (req, res, next) => {
   });
 };
 
-export const authorizeUpdatePermission = async (req, res, next) => {
+export const authorizeUpdateOrDeletePermission = async (req, res, next) => {
   const todoId = req.params.id;
   const userId = req.user.sub;
   const todo = await getTodoById(todoId);

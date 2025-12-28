@@ -1,10 +1,14 @@
-import { createTodoItem, updateTodoItem } from '../models/todo.model.js';
+import {
+  createTodoItem,
+  updateTodoItem,
+  deleteTodoItem,
+} from '../models/todo.model.js';
 import { validate } from '../middlewares/validation.middleware.js';
 import {
   createTodoItemSchema,
   updateTodoItemSchema,
 } from '../schemas/todos.schema.js';
-import { authorizeUpdatePermission } from '../middlewares/auth.middleware.js';
+import { authorizeUpdateOrDeletePermission } from '../middlewares/auth.middleware.js';
 
 export const createTodoItemController = [
   validate(createTodoItemSchema),
@@ -17,7 +21,7 @@ export const createTodoItemController = [
 ];
 
 export const updateTodoItemController = [
-  authorizeUpdatePermission,
+  authorizeUpdateOrDeletePermission,
   validate(updateTodoItemSchema),
   async (req, res) => {
     const { title, description, completed } = req.body;
@@ -25,5 +29,14 @@ export const updateTodoItemController = [
 
     const todo = await updateTodoItem(todoId, title, description, completed);
     res.status(200).json(todo);
+  },
+];
+
+export const deleteTodoItemController = [
+  authorizeUpdateOrDeletePermission,
+  async (req, res) => {
+    const todoId = req.params.id;
+    await deleteTodoItem(todoId);
+    res.status(204).send();
   },
 ];

@@ -27,3 +27,7 @@ export const updateTodoItem = async (id, title, description, completed) => {
     ]);
   return todo;
 };
+
+export const deleteTodoItem = async (id) => {
+  await db('todos').where('id', id).delete();
+};
