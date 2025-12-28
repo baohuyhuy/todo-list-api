@@ -11,10 +11,13 @@ export const validate = (schema) => async (req, res, next) => {
         .json({ error: result.error.flatten().fieldErrors });
     }
 
+    console.log(result.data);
+
     if (result.data.body) {
       req.body = result.data.body;
     }
     if (result.data.query) {
+      req.locals = {};
       req.locals.query = result.data.query;
     }
     if (result.data.params) {

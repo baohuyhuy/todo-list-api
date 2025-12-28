@@ -2,10 +2,12 @@ import {
   createTodoItem,
   updateTodoItem,
   deleteTodoItem,
+  getTodoItems,
 } from '../models/todo.model.js';
 import { validate } from '../middlewares/validation.middleware.js';
 import {
   createTodoItemSchema,
+  getTodoItemsSchema,
   updateTodoItemSchema,
 } from '../schemas/todos.schema.js';
 import { authorizeUpdateOrDeletePermission } from '../middlewares/auth.middleware.js';
@@ -38,5 +40,20 @@ export const deleteTodoItemController = [
     const todoId = req.params.id;
     await deleteTodoItem(todoId);
     res.status(204).send();
+  },
+];
+
+export const getTodoItemsController = [
+  validate(getTodoItemsSchema),
+  async (req, res) => {
+    const { page, limit } = req.locals.query;
+    const { todoItems, total, totalPages } = await getTodoItems(page, limit);
+    res.status(200).json({
+      data: todoItems,
+      page,
+      limit,
+      total,
+      totalPages,
+    });
   },
 ];

@@ -4,6 +4,7 @@ import {
   createTodoItemController,
   updateTodoItemController,
   deleteTodoItemController,
+  getTodoItemsController,
 } from '../controllers/todos.controller.js';
 
 const router = Router();
@@ -11,5 +12,6 @@ const router = Router();
 router.post('/', authenticateToken, createTodoItemController);
 router.put('/:id', authenticateToken, updateTodoItemController);
 router.delete('/:id', authenticateToken, deleteTodoItemController);
+router.get('/', authenticateToken, getTodoItemsController);
 
 export default router;
